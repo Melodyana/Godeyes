@@ -18,7 +18,60 @@
         </div>
     </div>
     <script>
-      
+      document.addEventListener("DOMContentLoaded", function () {
+    const frontCamera = document.getElementById("frontCamera");
+    const backCamera = document.getElementById("backCamera");
+    const fullscreenBtns = document.querySelectorAll(".fullscreenBtn");
+
+    // Access front and back cameras
+    navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+            const videoDevices = devices.filter(device => device.kind === 'videoinput');
+            const frontCameraDevice = videoDevices.find(device => device.label.toLowerCase().includes('front'));
+            const backCameraDevice = videoDevices.find(device => device.label.toLowerCase().includes('back'));
+
+            if (frontCameraDevice) {
+                navigator.mediaDevices.getUserMedia({ video: { deviceId: frontCameraDevice.deviceId } })
+                    .then((stream) => {
+                        frontCamera.srcObject = stream;
+                    })
+                    .catch((error) => {
+                        console.error("Error accessing front camera:", error);
+                    });
+            }
+
+            if (backCameraDevice) {
+                navigator.mediaDevices.getUserMedia({ video: { deviceId: backCameraDevice.deviceId } })
+                    .then((stream) => {
+                        backCamera.srcObject = stream;
+                    })
+                    .catch((error) => {
+                        console.error("Error accessing back camera:", error);
+                    });
+            }
+        })
+        .catch(error => {
+            console.error("Error enumerating devices:", error);
+        });
+
+    // Fullscreen functionality
+    fullscreenBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            const videoElementId = this.getAttribute('data-video');
+            const videoElement = document.getElementById(videoElementId);
+
+            if (videoElement.requestFullscreen) {
+                videoElement.requestFullscreen();
+            } else if (videoElement.mozRequestFullScreen) { // Firefox
+                videoElement.mozRequestFullScreen();
+            } else if (videoElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                videoElement.webkitRequestFullscreen();
+            } else if (videoElement.msRequestFullscreen) { // IE/Edge
+                videoElement.msRequestFullscreen();
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
