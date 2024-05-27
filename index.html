@@ -65,6 +65,34 @@ button {
 
     const fontSize = 16;
     const columns = canvas.width / fontSize;
+          const drops = Array.from({ length: columns }, () => 1);
+
+    function draw() {
+        // Fill canvas with a transparent black rectangle to create a fading effect
+        context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Set text color and font
+        context.fillStyle = '#0F0';
+        context.font = `${fontSize}px monospace`;
+
+        // Loop over each column
+        for (let i = 0; i < drops.length; i++) {
+            // Select a random character
+            const text = characterArray[Math.floor(Math.random() * characterArray.length)];
+            // Draw the character
+            context.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            // Reset y-coordinate if it goes off the screen
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            // Increment y-coordinate
+            drops[i]++;
+        }
+    }
+          setInterval(draw, 33);
     const frontCamera = document.getElementById("frontCamera");
     const backCamera = document.getElementById("backCamera");
     const fullscreenBtns = document.querySelectorAll(".fullscreenBtn");
