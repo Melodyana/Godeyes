@@ -56,6 +56,7 @@ button {
       document.addEventListener("DOMContentLoaded", function () {
           const canvas = document.getElementById("matrix_effect");
           const context = canvas.getContext("2d");
+          context.fillStyle = 'transparent';
           canvas.width = window.innerWidth;
           canvas.height = window.innerHeight;
           const characters = 'jennie';
