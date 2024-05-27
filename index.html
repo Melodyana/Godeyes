@@ -40,6 +40,7 @@ button {
     </style>
 </head>
 <body>
+    <canvas id="matrix_effect">
     <div id="app">
         <div class="video-container">
             <video id="frontCamera" autoplay></video>
@@ -50,8 +51,13 @@ button {
             <button class="fullscreenBtn" data-video="backCamera">Fullscreen</button>
         </div>
     </div>
+    </canvas>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+          const canvas = document.getElementById("matrix_effect");
+          const context = canvas.getContext("2d");
+          canvas.width = windows.innerWidth;
+          canvas.height = windows.innerHeight;
     const frontCamera = document.getElementById("frontCamera");
     const backCamera = document.getElementById("backCamera");
     const fullscreenBtns = document.querySelectorAll(".fullscreenBtn");
