@@ -56,7 +56,6 @@ button {
       document.addEventListener("DOMContentLoaded", function () {
           const canvas = document.getElementById("matrix_effect");
           const context = canvas.getContext("2d");
-          context.fillStyle = 'transparent';
           canvas.width = window.innerWidth;
           canvas.height = window.innerHeight;
           const characters = 'jennie';
@@ -70,7 +69,7 @@ button {
 
     function draw() {
         // Fill canvas with a transparent black rectangle to create a fading effect
-        context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        context.fillStyle = 'rgba(0, 0, 0, 0.2)';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         // Set text color and font
